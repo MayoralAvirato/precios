@@ -6,7 +6,7 @@
 font-family: 'Roboto', sans-serif; */
 
 
-.display-4 {
+.display-5 {
 font-family: 'Montserrat', sans-serif !important;
 font-weight: 600 !important;
 color: #2979FF; }
@@ -25,6 +25,12 @@ color: #2979FF; }
     padding: 10px 15px;
     max-width: 250px;
 }
+.info {
+    cursor: pointer;
+}
+body::-webkit-scrollbar {
+    display: none;
+   }
 
 @media (min-width: 992px){.hide-desktop {display: none !important;}}
 @media (max-width: 992px){.hide-mobile {display: none !important;}}
