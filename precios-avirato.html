@@ -23,16 +23,14 @@
     
       <div class="col-2 hide-mobile"></div>
     
-      <div class="col-6 col-sm-3 col-md-2 d-flex flex-column align-content-center text-center rob ">
+      <div id="price" class="col-6 col-sm-3 col-md-2 d-flex flex-column align-content-center text-center rob">
         <h2 class="fs-6 fw-bold">Platinum</h2>
-        <p class="fs-6 fw-bold m-0">Desde</p>
-        <p class="fs-6 fw-bold">799,99 €/mes</p>
-        <a href="https://avirato.com/contacto/" target="_blank" class="bg-dark rounded-pill mx-2 text-decoration-none scale-h-1">          
-          <p class="text-white my-2 btn-text px-2 fw-bold">Consultar</p>       
-      </a>
-        <p class="btn-text fw-bold pt-2 blue">Completamente personalizado
-    
-        </p>
+        <p class="fs-6 fw-bold m-0">From</p>
+        <p class="fs-6 fw-bold">799,99 €/month</p>
+        <a href="https://avirato.com/contacto/" target="_blank" class="bg-dark rounded-pill mx-2 text-decoration-none scale-h-1">
+          <p class="text-white my-2 btn-text px-2 fw-bold">Consult</p>
+        </a>
+        <p class="btn-text fw-bold pt-2 blue">Fully customised</p>
       </div>
       
       <div class="col-6 col-sm-3 col-md-2 d-flex flex-column align-content-center text-center rob ">
@@ -882,7 +880,47 @@
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
-})
+})  
     </script>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const coinElement = document.getElementById('coin');
+  
+  if (coinElement) {
+    const userLang = navigator.language || navigator.userLanguage;
+    const userCountry = navigator.geolocation ? navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude;
+      const long = position.coords.longitude;
+      fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=${userLang}`)
+        .then(response => response.json())
+        .then(data => {
+          const country = data.countryName;
+          const currencySymbol = getCurrencySymbol(userLang, country);
+          coinElement.innerHTML = currencySymbol;
+        });
+    }) : '';
+    
+    const getCurrencySymbol = (lang, country) => {
+      const currencySymbols = {
+        'en-GB': '£',
+        'en-US': '$',
+        'es-ES': '€'
+      };
+
+      const latinAmericanCountries = ['Mexico', 'Colombia', 'Argentina', 'Peru', 'Venezuela', 'Chile', 'Ecuador', 'Guatemala', 'Cuba', 'Bolivia', 'Dominican Republic', 'Honduras', 'Paraguay', 'El Salvador', 'Nicaragua', 'Costa Rica', 'Puerto Rico', 'Panama', 'Uruguay'];
+
+      if (lang === 'en') {
+        return country === 'United Kingdom' ? currencySymbols['en-GB'] : currencySymbols['en-US'];
+      } else if (lang === 'es') {
+        return latinAmericanCountries.includes(country) ? currencySymbols['en-US'] : currencySymbols['es-ES'];
+      } else {
+        return currencySymbols['es-ES'];
+      }
+    };
+  }
+});
+
+</script>
   </body>
 </html>
