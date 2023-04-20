@@ -26,7 +26,7 @@
       <div class="col-6 col-sm-3 col-md-2 d-flex flex-column align-content-center text-center rob ">
         <h2 class="fs-6 fw-bold">Platinum</h2>
         <p class="fs-6 fw-bold m-0">À partir</p>
-        <p class="fs-6 fw-bold">799,99 €/mois</p>
+        <p class="fs-6 fw-bold">799,99 <span class="currency-symbol">€</span>/mois</p>
         <a href="https://avirato.com/contacto/" target="_blank" class="bg-dark rounded-pill mx-2 text-decoration-none scale-h-1">          
           <p class="text-white my-2 btn-text px-2 fw-bold">Consulter</p>       
       </a>
@@ -38,7 +38,7 @@
       <div class="col-6 col-sm-3 col-md-2 d-flex flex-column align-content-center text-center rob ">
         <h2 class="fs-6 fw-bold">Advanced</h2>
         <p class="fs-6 fw-bold m-0">À partir</p>
-        <p class="fs-6 fw-bold">113,01 €/mois</p>
+        <p class="fs-6 fw-bold">113,01 <span class="currency-symbol">€</span>/mois</p>
         <a href="https://avirato.com/descargas/" target="_blank" class="bg-dark rounded-pill mx-2 text-decoration-none scale-h-1">          
           <p class="text-white my-2 btn-text px-2 fw-bold">Essai gratuit</p>       
       </a>
@@ -49,7 +49,7 @@
       <div class="col-6 col-sm-3 col-md-2 d-flex flex-column align-content-center text-center rob ">
         <h2 class="fs-6 fw-bold">Premium</h2>
         <p class="fs-6 fw-bold m-0">À partir</p>
-        <p class="fs-6 fw-bold">37,60 €/mois</p>
+        <p class="fs-6 fw-bold">37,60 <span class="currency-symbol">€</span>/mois</p>
         <a href="https://avirato.com/descargas/" target="_blank" class="bg-dark rounded-pill mx-2 text-decoration-none scale-h-1">          
           <p class="text-white my-2 btn-text px-2 fw-bold">Essai gratuit</p>       
       </a>
@@ -58,7 +58,7 @@
       <div class="col-6 col-sm-3 col-md-2 d-flex flex-column align-content-center text-center rob ">
         <h2 class="fs-6 fw-bold">Essentials</h2>
         <p class="fs-6 fw-bold m-0">À partir</p>
-        <p class="fs-6 fw-bold">25,60 €/mois</p>
+        <p class="fs-6 fw-bold">25,60 <span class="currency-symbol">€</span>/mois</p>
         <a href="https://avirato.com/descargas/" target="_blank" class="bg-dark rounded-pill mx-2 text-decoration-none scale-h-1">          
           <p class="text-white my-2 btn-text px-2 fw-bold">Essai gratuit</p>       
       </a>
@@ -68,7 +68,7 @@
       <div class="col-6 col-sm-3 col-md-2 d-flex flex-column align-content-center text-center rob ">
         <h2 class="fs-6 fw-bold">Gratuit</h2>
         <p class="fs-6 fw-bold m-0">À partir</p>
-        <p class="fs-6 fw-bold">0,00 €/mois</p>
+        <p class="fs-6 fw-bold">0,00 <span class="currency-symbol">€</span>/mois</p>
         <a href="https://avirato.com/descargas/" target="_blank" class="bg-dark rounded-pill mx-2 text-decoration-none scale-h-1">          
           <p class="text-white my-2 btn-text px-2 fw-bold">Télécharger gratuit</p>       
       </a>
@@ -874,7 +874,7 @@
 
 </div>
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
@@ -884,5 +884,36 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 })
     </script>
+
+<script>
+
+  $(document).ready(function() {
+    // Obtener la ubicación del usuario utilizando la API de ipapi
+    $.getJSON("https://ipapi.co/json/", function(data) {
+      // Obtener el código de país del usuario
+      var countryCode = data.country_code;
+  
+      // Obtener los elementos con la clase "currency-symbol"
+      var currencySymbols = document.getElementsByClassName("currency-symbol");
+  
+      // Cambiar el símbolo de moneda en función del país
+      if (countryCode === "GB") {
+        for (var i = 0; i < currencySymbols.length; i++) {
+          currencySymbols[i].innerHTML = "£";
+        }
+      } else if (countryCode === "US" || countryCode === "CA" || countryCode === "MX" || countryCode === "AR" || countryCode === "BR" || countryCode === "CL" || countryCode === "CO" || countryCode === "CR" || countryCode === "CU" || countryCode === "DO" || countryCode === "EC" || countryCode === "GT" || countryCode === "HN" || countryCode === "JM" || countryCode === "NI" || countryCode === "PA" || countryCode === "PY" || countryCode === "PE" || countryCode === "PR" || countryCode === "SV" || countryCode === "UY" || countryCode === "VE") {
+        for (var i = 0; i < currencySymbols.length; i++) {
+          currencySymbols[i].innerHTML = "$";
+        }
+      } else {
+        for (var i = 0; i < currencySymbols.length; i++) {
+          currencySymbols[i].innerHTML = "€";
+        }
+      }
+    });
+  });
+  
+  
+  </script>
   </body>
 </html>
